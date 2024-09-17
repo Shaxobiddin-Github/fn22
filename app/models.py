@@ -5,6 +5,10 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=50,unique=True,verbose_name="Kategoriya")
 
+    def get_newses(self):
+        newses = self.news_set.order_by("-created").filter(is_active=True)
+        return newses
+
     def __str__(self) -> str:
         return self.name
     
@@ -34,6 +38,8 @@ class News(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Saytga chiqarish")
     is_banner = models.BooleanField(default=False, verbose_name="Bannerga chiqarish")
     is_weekly = models.BooleanField(default=False, verbose_name="Haftalik yangilk")
+
+    
     
 
     def __str__(self) -> str:
