@@ -34,6 +34,10 @@
                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> {{news.views}} Views</a>
                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-comment-dots"></i> 05 Comment</a>
                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
+                            {% if perms.app.change_news %}
+                            <a href="{% url 'change' %}" class="text-dark link-hover"><i class="fa fa-edit"></i> Update</a>
+                            {% endif %}
+
                         </div>
                         <p class="my-4">
                             {{news.deskription}}
@@ -172,54 +176,43 @@
                         </div>
                         <div class="bg-light rounded p-4">
                             <h4 class="mb-4">Comments</h4>
+                            {% for comment in news.comment_set.all %}
                             <div class="p-4 bg-white rounded mb-4">
                                 <div class="row g-4">
-                                    <div class="col-3">
-                                        <img src="img/footer-4.jpg" class="img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <div class="col-9">
+                                
+                                    <div class="col-12">    
                                         <div class="d-flex justify-content-between">
-                                            <h5>James Boreego</h5>
+                                            <h5>{{comment.user.get_full_name}}</h5>
                                             <a href="#" class="link-hover text-body fs-6"><i class="fas fa-long-arrow-alt-right me-1"></i> Reply</a>
                                         </div>
-                                        <small class="text-body d-block mb-3"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum has been the industry's standard dummy type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                                        <small class="text-body d-block mb-3"><i class="fas fa-calendar-alt me-1"></i> {{comment.created}}</small>
+                                        <p class="mb-0">
+                                            {{comment.text}}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-4 bg-white rounded mb-0">
-                                <div class="row g-4">
-                                    <div class="col-3">
-                                        <img src="img/footer-4.jpg" class="img-fluid rounded-circle w-100" alt="">
-                                    </div>
-                                    <div class="col-9">
-                                        <div class="d-flex justify-content-between">
-                                            <h5>James Boreego</h5>
-                                            <a href="#" class="link-hover text-body fs-6"><i class="fas fa-long-arrow-alt-right me-1"></i> Reply</a>
-                                        </div>
-                                        <small class="text-body d-block mb-3"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum has been the industry's standard dummy type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+                           
                         </div>
                         <div class="bg-light rounded p-4 my-4">
                             <h4 class="mb-4">Leave A Comment</h4>
-                            <form action="#">
+                            <form action="{%  url 'add_comments' news.pk %}" method="get">
                                 <div class="row g-4">
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control py-3" placeholder="Full Name">
+                                        <input type="text" class="form-control py-3" placeholder="Full Name"
+                                        value="{{request.user.get_full_name}}" disabled> 
+                                        
                                     </div>
                                     <div class="col-lg-6">
-                                        <input type="email" class="form-control py-3" placeholder="Email Address">
+                                        <input type="email" class="form-control py-3" placeholder="Email Address"
+                                        value="{{request.user.email}}" disabled> 
                                     </div>
                                     <div class="col-12">
-                                        <textarea class="form-control" name="textarea" id="" cols="30" rows="7" placeholder="Write Your Comment Here"></textarea>
+                                        <textarea class="form-control" name="text" id="" cols="30" rows="7" placeholder="Write Your Comment Here"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button class="form-control btn btn-primary py-3" type="button">Submit Now</button>
+                                        <button class="form-control btn btn-primary py-3" type="submit">Submit Now</button>
                                     </div>
                                 </div>
                             </form>

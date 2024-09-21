@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -48,4 +49,17 @@ class News(models.Model):
     class Meta:
         verbose_name = "Yangilik"
         verbose_name_plural = "Yangiliklar"
+        permissions = [
+            ("can_view_news", "Can view news"),
+            ("can_edit_news", "Can edit news"),
+            ("can_delete_news", "Can delete news"),
+        ]
     
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.text[:50]}..."

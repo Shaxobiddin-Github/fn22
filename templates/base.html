@@ -9,6 +9,69 @@
         <meta content="" name="keywords">
         <meta content="" name="description">
 {% include 'components/_style.html' %}
+
+
+    <style>
+        .success{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1bfc07;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 16px;
+            padding-left: 900px;
+            border-radius: 5px;
+           
+
+
+        }
+        .warning{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: yellow;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(0, 0, 0);
+            font-size: 16px;
+            padding-left: 900px;
+            border-radius: 5px;
+           
+
+
+        }
+        .success{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1bfc07;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 16px;
+            padding-left: 900px;
+            border-radius: 5px;
+           
+
+
+        }
+        .xatolik{
+            
+                color: red;
+                font-size: 20px;
+                margin-right: 10px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+                &:hover{
+                    color: rgb(150, 42, 42);
+                }
+
+            
+        }
+    </style>
+
     </head>
 
     <body>
@@ -35,7 +98,14 @@
           
         {% endblock features %}
         <!-- Features End -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
 
+        </ul>
+        {% endif %}
 
        {% block content %}
        {% endblock content %}

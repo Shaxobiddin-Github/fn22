@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block content %}
+{% block content %}  
  <!-- Main Post Section Start -->
  <div class="container-fluid py-5">
     <div class="container py-5">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="border-bottom py-3">
-                    <a href="{% url 'detail' news_banner.id %}" class="display-4 text-dark mb-0 link-hover">{{ news_banner.name }}</a>
+                    <a href="{% url 'detail' news_banner.id %}" class="display-4 text-dark mb-0 link-hover"><b>{{ news_banner.name }}.</b></a>
                 </div>
                 <p class="mt-3 mb-4">
                     {{ news_banner.deskription|truncatewords:30 }}
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex flex-column">
-                                <a href="{% url 'detail' news_top_story.id %}" class="h3">{{ news_top_story.name }}</a>
+                                <a href="{% url 'detail' news_top_story.id %}" class="h3"><b>{{ news_top_story.name }}</b></a>
                                 <p class="mb-0 fs-5"><i class="fa fa-clock"> {{news_top_story.created}}</i> </p>
                                 <p class="mb-0 fs-5"><i class="fa fa-eye"> {{news_top_story.views}} Views</i></p>
                             </div>
@@ -66,6 +66,7 @@
                                 <p class="fs-5 mb-0"><i class="fa fa-eye"> {{ latest_new.views }} Views</i></p>
                             </div>
                         </div>
+                        <hr>
                         {% else %}
                         <div class="col-12">
                             <div class="row g-4 align-items-center">
@@ -76,13 +77,14 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="features-content d-flex flex-column">
-                                        <a href="{% url 'detail' latest_new.id %}" class="h6">{{latest_new.name}}</a>
+                                        <a href="{% url 'detail' latest_new.id %}" class="h6"><i>{{latest_new.name}}</i></a>
                                         <small><i class="fa fa-clock">{{latest_new.created}}</i> </small>
                                         <small><i class="fa fa-eye">{{latest_new.views}}</i></small>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         {% endif %}
                         {% endfor %}
                       
