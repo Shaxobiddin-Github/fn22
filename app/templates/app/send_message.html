@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block features %}
+
+{% endblock features %}
+
+
+{% block content %}
+<form action="" class="container mt-5 mb-5" method="post">
+    {% csrf_token %}
+    <input type="text" name="title" class="form-control mb-3" placeholder="Theme" required>
+    <textarea name="text" id="" cols="30" rows="10" class="form-control mb-3" placeholder="Message" required></textarea>
+    <div align="right">
+        <input type="submit" value="jo'natish" class="btn btn-primary" style="color: white;">
+    </div>
+</form>
+
+{% endblock content %}

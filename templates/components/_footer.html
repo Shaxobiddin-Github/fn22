@@ -11,10 +11,17 @@
                             </a>
                         </div>
                         <div class="col-lg-9">
-                            <div class="d-flex position-relative rounded-pill overflow-hidden">
-                                <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com">
-                                <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
-                            </div>
+                            <form action="">
+                                <div class="d-flex position-relative rounded-pill overflow-hidden">
+                                    
+                                    <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com" name="email">
+                                    {% if request.user.is_authenticated %}
+                                    <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
+                                    {% else %}
+                                    <a href="{% url 'login' %}" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;"> Subscribe Now </a>
+                                    {% endif %}
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

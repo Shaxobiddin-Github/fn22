@@ -4,6 +4,10 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import permission_required,login_required
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.mail import send_mail
+
+from django.conf import settings
+from django.contrib.auth.models import User
 
 
 from .models import Category, News,Comment
@@ -111,3 +115,33 @@ def save_comments(request:WSGIRequest,news_id):
     )
     messages.success(request, "Komment qushildi")
     return redirect('detail', pk=news_id)
+
+
+
+@login_required
+@permission_required("app.change_news","login")
+def change_news(request):
+    return  HttpResponse("o'zgartirish")
+
+
+@login_required
+def send_message_to_email(request:WSGIRequest):
+    if request.user.is_staff:
+        if request.method == "POST":
+            title = request.POST.get("title")
+            text = request.POST.get("text")
+            
+            users = User.objects.all()
+
+            send_mail(
+                title,
+                text,
+                settings.EMAIL_HOST_USER,
+                [user.email for user in users],
+                fail_silently=False,
+            )
+            messages.success(request, "xabar yuborildi📑")
+        return render(request,"app/send_message.html")
+    else:
+        page = request.META.get("Http_REFERER", "home")
+        return redirect(page)
